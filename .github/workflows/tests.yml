@@ -24,60 +24,33 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Checkout
         uses: actions/checkout@v4
-        env: 
-          CYPRESS_UNCAUGHT_EXC: ${{ vars.CYPRESS_UNCAUGHT_EXC }}
-          CYPRESS_EXPERIMENTAL_STUDIO: ${{ vars.CYPRESS_EXPERIMENTAL_STUDIO }}
-          CYPRESS_VIDEO: ${{ vars.CYPRESS_VIDEO }}
-          CYPRESS_SCREENSHOT_ON_FAIL: ${{ vars.CYPRESS_SCREENSHOT_ON_FAIL }}
-          CYPRESS_SCREENSHOT_ON_RUN_FAILURE: ${{ vars.CYPRESS_SCREENSHOT_ON_RUN_FAILURE }}
-          CYPRESS_VIEWPORT_WIDTH: ${{ vars.CYPRESS_VIEWPORT_WIDTH }}
-          CYPRESS_VIEWPORT_HEIGHT: ${{ vars.CYPRESS_VIEWPORT_HEIGHT }}
-          TARGET_URL: ${{ vars.TARGET_URL }}
-          TARGET_BASE_URL: ${{ vars.TARGET_BASE_URL }}
-          TARGET_MAIN_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
-          TARGET_MAIN_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
-          TARGET_TEST_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
-          TARGET_TEST_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
+       
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner.User $CYPRESS_VIEWPORT_WIDTH ,,"
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner.User  ,,"
+      - run: echo ${{ secrets.TARGET_MAIN_USER_NAME }}
       
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run with env
         uses: cypress-io/github-action@v6
-        env: 
-          CYPRESS_UNCAUGHT_EXC: ${{ vars.CYPRESS_UNCAUGHT_EXC }}
-          CYPRESS_EXPERIMENTAL_STUDIO: ${{ vars.CYPRESS_EXPERIMENTAL_STUDIO }}
-          CYPRESS_VIDEO: ${{ vars.CYPRESS_VIDEO }}
-          CYPRESS_SCREENSHOT_ON_FAIL: ${{ vars.CYPRESS_SCREENSHOT_ON_FAIL }}
-          CYPRESS_SCREENSHOT_ON_RUN_FAILURE: ${{ vars.CYPRESS_SCREENSHOT_ON_RUN_FAILURE }}
-          CYPRESS_VIEWPORT_WIDTH: ${{ vars.CYPRESS_VIEWPORT_WIDTH }}
-          CYPRESS_VIEWPORT_HEIGHT: ${{ vars.CYPRESS_VIEWPORT_HEIGHT }}
-          TARGET_URL: ${{ vars.TARGET_URL }}
-          TARGET_BASE_URL: ${{ vars.TARGET_BASE_URL }}
-          TARGET_MAIN_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
-          TARGET_MAIN_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
-          TARGET_TEST_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
-          TARGET_TEST_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
+        # env: 
+        #   CYPRESS_UNCAUGHT_EXC: ${{ vars.CYPRESS_UNCAUGHT_EXC }}
+        #   CYPRESS_EXPERIMENTAL_STUDIO: ${{ vars.CYPRESS_EXPERIMENTAL_STUDIO }}
+        #   CYPRESS_VIDEO: ${{ vars.CYPRESS_VIDEO }}
+        #   CYPRESS_SCREENSHOT_ON_FAIL: ${{ vars.CYPRESS_SCREENSHOT_ON_FAIL }}
+        #   CYPRESS_SCREENSHOT_ON_RUN_FAILURE: ${{ vars.CYPRESS_SCREENSHOT_ON_RUN_FAILURE }}
+        #   CYPRESS_VIEWPORT_WIDTH: ${{ vars.CYPRESS_VIEWPORT_WIDTH }}
+        #   CYPRESS_VIEWPORT_HEIGHT: ${{ vars.CYPRESS_VIEWPORT_HEIGHT }}
+        #   TARGET_URL: ${{ vars.TARGET_URL }}
+        #   TARGET_BASE_URL: ${{ vars.TARGET_BASE_URL }}
+        #   TARGET_MAIN_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
+        #   TARGET_MAIN_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
+        #   TARGET_TEST_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
+        #   TARGET_TEST_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
         # with:
         #   build: npm run build
         #   start: npm start
-      - name: View Vars
-        run: |
-          echo "CYPRESS_UNCAUGHT_EXC: ${{vars.CYPRESS_UNCAUGHT_EXC}}"
-          echo "CYPRESS_EXPERIMENTAL_STUDIO: ${{vars.CYPRESS_EXPERIMENTAL_STUDIO}}"
-          echo "CYPRESS_VIDEO: ${{vars.CYPRESS_VIDEO}}"
-          echo "CYPRESS_SCREENSHOT_ON_FAIL: ${{vars.CYPRESS_SCREENSHOT_ON_FAIL}}"
-          echo "CYPRESS_SCREENSHOT_ON_RUN_FAILURE: ${{vars.CYPRESS_SCREENSHOT_ON_RUN_FAILURE}}"
-          echo "CYPRESS_VIEWPORT_WIDTH: ${{vars.CYPRESS_VIEWPORT_WIDTH}}"
-          echo "CYPRESS_VIEWPORT_HEIGHT: ${{vars.CYPRESS_VIEWPORT_HEIGHT}}"
-          echo "TARGET_URL: ${{vars.TARGET_URL}}"
-          echo "TARGET_BASE_URL: ${{vars.TARGET_BASE_URL}}"
-          echo "TARGET_MAIN_USER_NAME: ${{secrets.TARGET_MAIN_USER_NAME}}"
-          echo "TARGET_MAIN_USER_PASS: ${{secrets.TARGET_MAIN_USER_PASS}}"
-          echo "TARGET_TEST_USER_NAME: ${{secrets.TARGET_TEST_USER_NAME}}"
-          echo "TARGET_TEST_USER_PASS: ${{secrets.TARGET_TEST_USER_PASS}}"
-          echo "Mostrar variables de ambiente Cypress"
+
         
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
