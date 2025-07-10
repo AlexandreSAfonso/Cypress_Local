@@ -49,13 +49,17 @@ describe('template spec', () => {
   });
   
   it("Login with Incorrect Credentials", () => {
-    cy.get('[data-testid="input-email"]')
+    // cy.get('[data-testid="input-email"]')
+    cy.get('#E-mail')
       .click({force: true})
-    cy.get('[data-testid="input-email"]')
+    // cy.get('[data-testid="input-email"]')
+    cy.get('#E-mail')
       .type(Cypress.env('TARGET_MAIN_USER_NAME'), { waitForAnimations: false });
-    cy.get('[data-testid="input-password"]')
+    // cy.get('[data-testid="input-password"]')
+    cy.get('#Senha')
       .type('needs to be wrong');
-    cy.get('[data-testid="button-login"]')
+    // cy.get('[data-testid="button-login"]')
+    cy.get('.sc-42f49407-2 > .sc-855e8c18-0')
       .click();
     cy.url().should('eq', `${Cypress.env('TARGET_URL') }login`);
   });
@@ -63,11 +67,14 @@ describe('template spec', () => {
   it("Login with Correct Credentials", () => {
     cy.get("#E-mail")
       .click({force: true})
-    cy.get('[data-testid="input-email"]')
+    // cy.get('[data-testid="input-email"]')
+    cy.get('#E-mail')
       .type(Cypress.env('TARGET_MAIN_USER_NAME'));
-    cy.get('[data-testid="input-password"]')
+    // cy.get('[data-testid="input-password"]')
+    cy.get('#Senha')
       .type(Cypress.env('TARGET_MAIN_USER_PASS'), { log: false });
-    cy.get('[data-testid="button-login"]')
+    // cy.get('[data-testid="button-login"]')
+    cy.get('.sc-42f49407-2 > .sc-855e8c18-0')
       .click();
     cy.url()
       .should('eq', `${Cypress.env('TARGET_URL') }overview` );
