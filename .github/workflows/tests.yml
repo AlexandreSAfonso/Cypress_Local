@@ -21,8 +21,25 @@ jobs:
         uses: actions/checkout@v4
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
-      - name: Cypress run
+      - name: Cypress run with env
         uses: cypress-io/github-action@v6
+        with:
+          env: true
+        env: 
+          CYPRESS_UNCAUGHT_EXC: ${{env.CYPRESS_UNCAUGHT_EXC}}
+          CYPRESS_EXPERIMENTAL_STUDIO: ${{env.CYPRESS_EXPERIMENTAL_STUDIO}}
+          CYPRESS_VIDEO: ${{env.CYPRESS_VIDEO}}
+          CYPRESS_SCREENSHOT_ON_FAIL: ${{env.CYPRESS_SCREENSHOT_ON_FAIL}}
+          CYPRESS_SCREENSHOT_ON_RUN_FAILURE: ${{env.CYPRESS_SCREENSHOT_ON_RUN_FAILURE}}
+          CYPRESS_VIEWPORT_WIDTH: ${{env.CYPRESS_VIEWPORT_WIDTH}}
+          CYPRESS_VIEWPORT_HEIGHT: ${{env.CYPRESS_VIEWPORT_HEIGHT}}
+          TARGET_URL: ${{env.TARGET_URL}}
+          TARGET_BASE_URL: ${{env.TARGET_BASE_URL}}
+          TARGET_MAIN_USER_NAME: ${{secrets.TARGET_MAIN_USER_NAME}}
+          TARGET_MAIN_USER_PASS: ${{secrets.TARGET_MAIN_USER_PASS}}
+          TARGET_TEST_USER_NAME: ${{secrets.TARGET_MAIN_USER_NAME}}
+          TARGET_TEST_USER_PASS: ${{secrets.TARGET_MAIN_USER_PASS}}
+        
         # with:
         #   build: npm run build
         #   start: npm start
