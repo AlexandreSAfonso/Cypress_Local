@@ -39,7 +39,7 @@ jobs:
           TARGET_TEST_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
           TARGET_TEST_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner.User ${{ env.CYPRESS_VIEWPORT_WIDTH }} ,,"
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner.User $CYPRESS_VIEWPORT_WIDTH ,,"
       
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
