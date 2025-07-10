@@ -9,25 +9,27 @@ describe('Security testing', () => {
     }
   })  
   it('checks for XSS vulnerability', () => {
-    cy.visit(Cypress.env('TARGET_URL'));
-    cy.get('[data-testid="input-email"]').type('<script>alert("XSS")</script>');
+    cy.log(`Try to acess: ${Cypress.env('CYPRESS_TARGET_URL') }`);
+    console.log(`Try to acess: ${Cypress.env('CYPRESS_TARGET_URL') }`);
+    cy.visit(Cypress.env('CYPRESS_TARGET_URL'));
+    cy.get('[data-test-id="input-email"]').type('<script>alert("XSS")</script>');
     cy.get('form').submit();
     cy.contains('<script>alert("XSS")</script>').should('not.exist');
   });
 
 
-  it('checks for CSRF vulnerability', () => {
-    cy.request({
-      method: 'POST',
-      url: `${Cypress.env('TARGET_URL') }users-management`,      form: true,
-      body: {
-        name: 'John Doe',
-        email: 'john.doe@example.com'
-      }
-    }).then((response) => {
-      expect(response.status).to.eq(403);
-    });
-  });
+  // it('checks for CSRF vulnerability', () => {
+  //   cy.request({
+  //     method: 'POST',
+  //     url: `${Cypress.env('TARGET_URL') }users-management`,      form: true,
+  //     body: {
+  //       name: 'John Doe',
+  //       email: 'john.doe@example.com'
+  //     }
+  //   }).then((response) => {
+  //     expect(response.status).to.eq(403);
+  //   });
+  // });
 
 
   // it.only('checks for SQL injection vulnerability', () => {

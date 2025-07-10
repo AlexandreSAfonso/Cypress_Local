@@ -1,19 +1,73 @@
-name: Cypress Tests
+name: CI Cypress Tests
+# This workflow represents a set of basic End-to-End tests
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - 'master'
+      - 'main'
+      - 'dev'
   pull_request:
-    branches: [ main, master ]
+  workflow_dispatch:
+env: 
+  CYPRESS_UNCAUGHT_EXC: ${{ vars.CYPRESS_UNCAUGHT_EXC }}
+  CYPRESS_EXPERIMENTAL_STUDIO: ${{ vars.CYPRESS_EXPERIMENTAL_STUDIO }}
+  CYPRESS_VIDEO: ${{ vars.CYPRESS_VIDEO }}
+  CYPRESS_SCREENSHOT_ON_FAIL: ${{ vars.CYPRESS_SCREENSHOT_ON_FAIL }}
+  CYPRESS_SCREENSHOT_ON_RUN_FAILURE: ${{ vars.CYPRESS_SCREENSHOT_ON_RUN_FAILURE }}
+  CYPRESS_VIEWPORT_WIDTH: ${{ vars.CYPRESS_VIEWPORT_WIDTH }}
+  CYPRESS_VIEWPORT_HEIGHT: ${{ vars.CYPRESS_VIEWPORT_HEIGHT }}
+  CYPRESS_TARGET_URL: ${{ vars.CYPRESS_TARGET_URL }}
+  CYPRESS_TARGET_BASE_URL: ${{ vars.CYPRESS_TARGET_BASE_URL }}
+  CYPRESS_TARGET_MAIN_USER_NAME: ${{ secrets.CYPRESS_TARGET_MAIN_USER_NAME }}
+  CYPRESS_TARGET_MAIN_USER_PASS: ${{ secrets.CYPRESS_TARGET_MAIN_USER_PASS }}
+  CYPRESS_TARGET_TEST_USER_NAME: ${{ secrets.CYPRESS_TARGET_MAIN_USER_NAME }}
+  CYPRESS_TARGET_TEST_USER_PASS: ${{ secrets.CYPRESS_TARGET_MAIN_USER_PASS }}
 
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
+  basic:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04]
+        #, ubuntu-24.04, windows-2025, macos-15]
+    runs-on: ${{ matrix.os }}
     steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Checkout
         uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner.User ${{ secrets.TARGET_MAIN_USER_NAME }}"
+
+
+      - name: Run Env on one line
+        run: env
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Run cypress_get_env.py
+        run: python3 cypress_get_env.py
+      
       - name: Cypress run
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
-          build: npm run build
-          start: npm start
-          wait-on: 'http://localhost:3000'
+          env: true
+        # with:
+        #   build: npm run build
+        #   start: npm start
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: warn
+      - name: Upload Videos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: warn
