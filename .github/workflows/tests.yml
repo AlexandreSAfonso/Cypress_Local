@@ -1,9 +1,9 @@
 name: Cypress Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master,dev ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, dev ]
 
 jobs:
   cypress-run:
@@ -11,9 +11,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Cypress Install
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
+          
+        
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
+          run: npm install
           build: npm run build
           start: npm start
           wait-on: 'http://localhost:3000'
