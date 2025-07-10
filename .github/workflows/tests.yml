@@ -19,15 +19,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Cypress tests
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
         uses: cypress-io/github-action@v6
-        # uses: ./
-        # the parameters below are only necessary
-        # because we are running these examples in a monorepo
         with:
-          working-directory: ./
-          # just for full picture after installing Cypress
-          # print information about detected browsers, etc
-          # see https://on.cypress.io/command-line#cypress-info
-          build: yarn cypress run-ct
+          build: npm run build
+          start: npm start
