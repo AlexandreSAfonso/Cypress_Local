@@ -14,6 +14,7 @@ def get_env_vars_as_json():
 
 if __name__ == "__main__":
   json_output = get_env_vars_as_json()
+
   # Save the JSON output to a file
   with open('cypress.env.json', 'w') as f:
     f.write(json_output)
