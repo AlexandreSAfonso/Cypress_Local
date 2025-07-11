@@ -42,7 +42,7 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner.User ${{ secrets.TARGET_MAIN_USER_NAME }}"
       
       - name: Run Env on one line
-        run: env
+        run: echo ${{ env.CYPRESS_TARGET_URL }}
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run with env
