@@ -18,7 +18,7 @@ env:
   # CYPRESS_VIEWPORT_WIDTH: ${{ vars.CYPRESS_VIEWPORT_WIDTH }}
   # CYPRESS_VIEWPORT_HEIGHT: ${{ vars.CYPRESS_VIEWPORT_HEIGHT }}
   # CYPRESS_TARGET_URL: ${{ vars.CYPRESS_TARGET_URL }}
-  CYPRESS_TARGET_BASE_URL: ${{ vars.CYPRESS_TARGET_BASE_URL }}
+  CYPRESS_TARGET_BASE_URL: ${{ github.env.CYPRESS_TARGET_BASE_URL }}
   # CYPRESS_TARGET_MAIN_USER_NAME: ${{ secrets.CYPRESS_TARGET_MAIN_USER_NAME }}
   # CYPRESS_TARGET_MAIN_USER_PASS: ${{ secrets.CYPRESS_TARGET_MAIN_USER_PASS }}
   # CYPRESS_TARGET_TEST_USER_NAME: ${{ secrets.CYPRESS_TARGET_MAIN_USER_NAME }}
@@ -42,7 +42,7 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner.User ${{ secrets.TARGET_MAIN_USER_NAME }}"
       
       - name: Run Env on one line
-        run: echo ${{ vars.CYPRESS_TARGET_URL }}
+        run: env
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run with env
