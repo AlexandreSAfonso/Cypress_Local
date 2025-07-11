@@ -6,12 +6,25 @@ This project was created to cover e2e testing of the Haras Pro website with the 
 
 
 
+
 ## Source Material
 
 [Instal Cypress on WSL from ](https://gist.github.com/pjobson/6b9fb926c59f58aa73d4efa10fe13654)
 
 [Instal Cypress complement lib libnss3 ](https://stackoverflow.com/questions/58134793/error-while-loading-shared-libraries-libnss3-so-while-running-gtlab-ci-job-to)
 
+
+## Prepare Local Env to Run
+
+Modify the environment variables file name as below so that it is automatically used by Cypress
+
+    model_cypress.env.json 
+
+to 
+
+    model_cypress.env.json
+
+Fill the variables in this file with the values ​​from the environment to be tested.
 
 ## Run Command to open Cypres IDE
     
