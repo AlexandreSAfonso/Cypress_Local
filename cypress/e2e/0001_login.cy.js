@@ -11,7 +11,7 @@ describe('template spec', () => {
   beforeEach(() => {
     // This will run before each test in the block
     cy.viewport(1280, 960);
-    cy.visit(Cypress.env('TARGET_URL'));
+    cy.visit(Cypress.env('CYPRESS_TARGET_URL'));
 
   });
 
@@ -49,38 +49,51 @@ describe('template spec', () => {
   });
   
   it("Login with Incorrect Credentials", () => {
-    cy.get('[data-testid="input-email"]')
+    cy.get('[data-test-id="input-email"]')
       .click({force: true})
-    cy.get('[data-testid="input-email"]')
-      .type(Cypress.env('TARGET_MAIN_USER_NAME'), { waitForAnimations: false });
-    cy.get('[data-testid="input-password"]')
+    cy.get('[data-test-id="input-email"]')
+      .type(Cypress.env('CYPRESS_TARGET_MAIN_USER_NAME'), { waitForAnimations: false });
+    cy.get('[data-test-id="input-password"]')
       .type('needs to be wrong');
-    cy.get('[data-testid="button-login"]')
+    cy.get('[data-test-id="button-login"]')
       .click();
-    cy.url().should('eq', `${Cypress.env('TARGET_URL') }login`);
+    cy.url().should('eq', `${Cypress.env('CYPRESS_TARGET_URL') }login`);
   });
   
   it("Login with Correct Credentials", () => {
-    cy.get("#E-mail")
+    cy.get('[data-test-id="input-email"]')
       .click({force: true})
-    cy.get('[data-testid="input-email"]')
-      .type(Cypress.env('TARGET_MAIN_USER_NAME'));
-    cy.get('[data-testid="input-password"]')
-      .type(Cypress.env('TARGET_MAIN_USER_PASS'), { log: false });
-    cy.get('[data-testid="button-login"]')
+    cy.get('[data-test-id="input-email"]')
+      .type(Cypress.env('CYPRESS_TARGET_MAIN_USER_NAME'));
+    cy.get('[data-test-id="input-password"]')
+      .type(Cypress.env('CYPRESS_TARGET_MAIN_USER_PASS'), { log: false });
+    cy.get('[data-test-id="button-login"]')
       .click();
+    cy.get('div > label')
+      .contains('SystemTech');
+
     cy.url()
-      .should('eq', `${Cypress.env('TARGET_URL') }overview` );
+      .should('eq', `${Cypress.env('CYPRESS_TARGET_URL') }overview` );
+  });
+  
+  it.only("Lost Password without e-mail", () => {
+    cy.get('[data-test-id="button-forgot-password"] > .sc-85cb45e8-5') //TODO Review ID functionality
+     .click();
+    cy.get('[data-test-id="input-email-forgot-password"]')
+      .click();
+    cy.get('[data-test-id="button-send-forgot-password"]').focus().blur();
+    cy.get('[data-test-id="input-email-forgot-password-error"]')
+      .should('be.visible');
+
   });
 
-  // it.only("tests 1 Lost pass Recording 03/07/2025 at 23:46:25", () => {
-  //   cy.get('[data-testid="button-forgot-password"] > .sc-85cb45e8-5')
-  //    .click();
-  //   //cy.get("div.sc-2d3fed29-26 > div > div > div > div").click();
-  //   cy.get("#E-mail").click();
-  //   cy.get("#E-mail").type("badbass55@gmail.com");
-  //   cy.get("div:nth-of-type(2) button").click();
-  //   //cy.get("div.sc-42f49407-1 > div:nth-of-type(1) label").click();
-  //   //cy.get("div.sc-42f49407-1 > div:nth-of-type(1) label").click();
-  // });
+  it("Lost Password", () => {
+    cy.get('[data-test-id="button-forgot-password"] > .sc-85cb45e8-5') //TODO Review ID functionality
+     .click();
+    cy.get('[data-test-id="input-email-forgot-password"]')
+      .click();
+    cy.get('[data-test-id="input-email-forgot-password"]')
+      .type("badbass55@gmail.com");
+    cy.get('[data-test-id="button-send-forgot-password"]') //TOTO needs to create a mecanism to check if the email is sent
+  });
 });
