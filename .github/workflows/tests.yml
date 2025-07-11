@@ -47,7 +47,7 @@ jobs:
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Run cypress_get_env.py
-        run: python3 ../../cypress_get_env.py
+        run: python3 /home/runner/work/Cypress_Local/cypress_get_env.py
 
       
       - name: Cypress run
