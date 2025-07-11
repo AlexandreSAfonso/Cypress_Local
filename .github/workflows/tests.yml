@@ -46,13 +46,8 @@ jobs:
         run: env
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
-      - name: setup python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
-
       - name: Run cypress_get_env.py
-        run: python3 cypress_get_env.py
+        run: python3 ../cypress_get_env.py
 
       
       - name: Cypress run
