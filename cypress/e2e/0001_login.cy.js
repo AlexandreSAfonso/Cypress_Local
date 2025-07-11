@@ -54,14 +54,14 @@ describe('template spec', () => {
       .click({force: true})
     // cy.get('[data-testid="input-email"]')
     cy.get('#E-mail')
-      .type(Cypress.env('TARGET_MAIN_USER_NAME'), { waitForAnimations: false });
+      .type(Cypress.env('CYPRESS_TARGET_MAIN_USER_NAME'), { waitForAnimations: false });
     // cy.get('[data-testid="input-password"]')
     cy.get('#Senha')
       .type('needs to be wrong');
     // cy.get('[data-testid="button-login"]')
     cy.get('.sc-42f49407-2 > .sc-855e8c18-0')
       .click();
-    cy.url().should('eq', `${Cypress.env('TARGET_URL') }login`);
+    cy.url().should('eq', `${Cypress.env('CYPRESS_TARGET_URL') }login`);
   });
   
   it("Login with Correct Credentials", () => {
@@ -69,15 +69,15 @@ describe('template spec', () => {
       .click({force: true})
     // cy.get('[data-testid="input-email"]')
     cy.get('#E-mail')
-      .type(Cypress.env('TARGET_MAIN_USER_NAME'));
+      .type(Cypress.env('CYPRESS_TARGET_MAIN_USER_NAME'));
     // cy.get('[data-testid="input-password"]')
     cy.get('#Senha')
-      .type(Cypress.env('TARGET_MAIN_USER_PASS'), { log: false });
+      .type(Cypress.env('CYPRESS_TARGET_MAIN_USER_PASS'), { log: false });
     // cy.get('[data-testid="button-login"]')
     cy.get('.sc-42f49407-2 > .sc-855e8c18-0')
       .click();
     cy.url()
-      .should('eq', `${Cypress.env('TARGET_URL') }overview` );
+      .should('eq', `${Cypress.env('CYPRESS_TARGET_URL') }overview` );
   });
 
   // it.only("tests 1 Lost pass Recording 03/07/2025 at 23:46:25", () => {

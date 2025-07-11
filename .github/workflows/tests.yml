@@ -17,12 +17,12 @@ env:
   CYPRESS_SCREENSHOT_ON_RUN_FAILURE: ${{ vars.CYPRESS_SCREENSHOT_ON_RUN_FAILURE }}
   CYPRESS_VIEWPORT_WIDTH: ${{ vars.CYPRESS_VIEWPORT_WIDTH }}
   CYPRESS_VIEWPORT_HEIGHT: ${{ vars.CYPRESS_VIEWPORT_HEIGHT }}
-  TARGET_URL: ${{ vars.TARGET_URL }}
-  TARGET_BASE_URL: ${{ vars.TARGET_BASE_URL }}
-  TARGET_MAIN_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
-  TARGET_MAIN_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
-  TARGET_TEST_USER_NAME: ${{ secrets.TARGET_MAIN_USER_NAME }}
-  TARGET_TEST_USER_PASS: ${{ secrets.TARGET_MAIN_USER_PASS }}
+  CYPRESS_TARGET_URL: ${{ vars.CYPRESS_TARGET_URL }}
+  CYPRESS_TARGET_BASE_URL: ${{ vars.CYPRESS_TARGET_BASE_URL }}
+  CYPRESS_TARGET_MAIN_USER_NAME: ${{ secrets.CYPRESS_TARGET_MAIN_USER_NAME }}
+  CYPRESS_TARGET_MAIN_USER_PASS: ${{ secrets.CYPRESS_TARGET_MAIN_USER_PASS }}
+  CYPRESS_TARGET_TEST_USER_NAME: ${{ secrets.CYPRESS_TARGET_MAIN_USER_NAME }}
+  CYPRESS_TARGET_TEST_USER_PASS: ${{ secrets.CYPRESS_TARGET_MAIN_USER_PASS }}
 
 jobs:
   basic:
@@ -39,12 +39,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner.User"
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner.User ${{ secrets.TARGET_MAIN_USER_NAME }}"
       
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run with env
         uses: cypress-io/github-action@v6
+        with:
+          env: true
         # with:
         #   build: npm run build
         #   start: npm start

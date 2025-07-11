@@ -9,9 +9,9 @@ describe('Security testing', () => {
     }
   })  
   it('checks for XSS vulnerability', () => {
-    cy.log(`Try to acess: ${Cypress.env('TARGET_URL') }`);
-    console.log(`Try to acess: ${Cypress.env('TARGET_URL') }`);
-    cy.visit(Cypress.env('TARGET_URL'));
+    cy.log(`Try to acess: ${Cypress.env('CYPRESS_TARGET_URL') }`);
+    console.log(`Try to acess: ${Cypress.env('CYPRESS_TARGET_URL') }`);
+    cy.visit(Cypress.env('CYPRESS_TARGET_URL'));
     cy.get('#E-mail').type('<script>alert("XSS")</script>');
     cy.get('form').submit();
     cy.contains('<script>alert("XSS")</script>').should('not.exist');
