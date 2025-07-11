@@ -41,6 +41,8 @@ jobs:
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner.User ${{ secrets.TARGET_MAIN_USER_NAME }}"
       
+      - name: Run Env on one line
+        run: env
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run with env
