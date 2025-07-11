@@ -24,7 +24,20 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Checkout
         uses: actions/checkout@v4
-       
+      - run: CYPRESS_UNCAUGHT_EXC = ${{ vars.CYPRESS_UNCAUGHT_EXC }}
+      - run: CYPRESS_EXPERIMENTAL_STUDIO = ${{ vars.CYPRESS_EXPERIMENTAL_STUDIO }}
+      - run: CYPRESS_VIDEO = ${{ vars.CYPESS_VIDEO }}
+      - run: CYPRESS_SCREENSHOT_ON_FAIL = ${{ vars.CYPRESS_SCREENSHOT_ON_FAIL }}
+      - run: CYPRESS_SCREENSHOT_ON_RUN_FILURE = ${{ vars.CYPRESS_SCREENSHOT_ON_RUN_FAILURE }}
+      - run: CYPRESS_VIEWPORT_WIDTH = ${{vars.CYPRESS_VIEWPORT_WIDTH }}
+      - run: CYPRESS_VIEWPORT_HEIGHT = ${{ vars.CYPRESS_VIEWPORT_HEIGHT }}
+      - run: TARGET_URL = ${{ vars.TARGETURL }}
+      - run: TARGET_BASE_URL = ${{ vars.TRGET_BASE_URL }}
+      - run: TARGET_MAIN_USER_NAME = ${{ secrets.TARGET_MAIN_USER_NAME }}
+      - run: TARGET_MAIN_USER_PASS = ${{ secrets.TARGET_MAIN_USER_PASS }}
+      - run: TARGET_TEST_USER_NAME = ${{ secrets.TARGET_MAIN_USER_NAME }}
+      - run: TARGET_TEST_USER_PASS = ${{ secrets.TARGET_MAIN_USER_PASS }}
+
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner.User  ,,"
       - run: echo ${{ secrets.TARGET_MAIN_USER_NAME }}
