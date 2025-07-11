@@ -45,3 +45,4 @@ libs
 .env
 .env.local
 cypress.env.json
+cypress.env copy.json
