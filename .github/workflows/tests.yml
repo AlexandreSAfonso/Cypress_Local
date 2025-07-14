@@ -30,6 +30,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04, ubuntu-24.04, windows-2025, macos-15]
+        browser: [chrome, firefox, edge]
+        exclude:
+          - os: macos-15
+            browser: edge
     runs-on: ${{ matrix.os }}
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -51,6 +55,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           env: true
+          browser: ${{ matrix.browser }}
         # with:
         #   build: npm run build
         #   start: npm start
